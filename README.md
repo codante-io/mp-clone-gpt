@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Clone do ChatGPT
 
-## Getting Started
+Já considerou a possibilidade de desenvolver o seu próprio chatbot? A inteligência artificial está conquistando cada vez mais espaço, e com a API da OpenAI, você tem a oportunidade de criar o seu próprio ChatGPT. Com a capacidade de gerar textos de maneira natural, o seu chatbot estará pronto para conversar com você.
 
-First, run the development server:
+## 🤓 Antes de começar
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Esse Mini Projeto contém um boilerplate inicial, ou seja, algumas partes do código já estão prontas para que você possoa focar nas tecnologias principais.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Caso você prefira começar do zero, não tem problema, basta utilizar outra *branch* ou apagar os arquivos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Caso você utilize o boilerplate, atente-se à estrutura do código.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🔨 Requisitos
 
-## Learn More
+- Utilize o Next JS + TypeScript + Tailwind CSS.
+- Utilize a API da OpenAI para gerar os textos.
 
-To learn more about Next.js, take a look at the following resources:
+	> 👀 **Dicas:**
+	> - Utilize as rotas de API do Next JS para fazer as requisições para a OpenAI.
+	> - Tire as suas dúvidas na documentação da [OpenAI](https://www.npmjs.com/package/openai).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Crie um guia inicial de como o usuário pode obter a sua chave de acesso da OpenAI.
+- Seu app deve ter um campo de texto para o usuário digitar a sua chave.
+- Seu app deve ter um campo de texto para o usuário digitar a sua pergunta.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+	> 👀 **Dicas:**
+	> - Busque reaproveitar componentes.
+	> - Fique a vontade para utilizar qualquer gerenciador de estado.
 
-## Deploy on Vercel
+- Seu app deve ter um botão para enviar a pergunta para a OpenAI.
+- Crie componentes para renderizar as perguntas do Usuário e respostas do Bot.
+- Crie um loading para indicar que a resposta do Bot está sendo processada.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔨 Desafio extra para quem quer ir além
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Crie um menu lateral para armazenar diferentes conversas.
+- Crie uma lógica para que seja possível navegar entre as conversas.
+- Crie uma lógica para que seja possível excluir uma conversa.
+- Utilize o localStorage para carregar a sua lista de conversas ao abrir a aplicação.
+
+## 💻 Setup do projeto
+
+O projeto com o design inicial já estará disponível para você na branch principal do repositório. Sua responsabilidade será apenas de implementar a lógica de acordo com o passo a passo acima.
+
+## 🔍 Dicas
+
+- Estude sobre componentização, estados e passagem de Props.
+- Estude sobre renderização condicional de componentes.
+- Estude sobre tipagem de dados com TypeScript.
+- Estude sobre Tailwind CSS e utilize com frequência a documentação.
+
+## 🎨 Design Sugerido
+
+Temos uma sugestão de design no Figma. Entretanto, fique à vontade para montar a aplicação conforme a sua criatividade.
+
+### Figma
+
+🔗 [Link do design]()
+
+## 👉🏽 Sobre esse mini-projeto
+
+### Tecnologias
+
+- **Tecnologias:**
+  - `Next JS`;
+  - `TypeScript`;
+  - `Tailwind CSS`;
+  - `OpenAI`;
