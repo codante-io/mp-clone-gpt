@@ -1,113 +1,137 @@
-import Image from 'next/image'
+'use client';
 
-export default function Home() {
+import {
+  ReactElement, useCallback, useEffect, useState,
+} from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { IChatList, IResponse } from '@/utils/types';
+import { modelResponse } from '@/utils/helper';
+import requestApi from '@/utils/requestApi';
+import Title from '@/components/Title';
+import ChatBot from '@/components/ChatBot';
+import SearchField from '@/components/SearchField';
+import Guide from '@/components/Guide';
+import Aside from '@/components/Aside';
+
+export default function Home(): ReactElement {
+  const [key, setKey] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [questions, setQuestions] = useState<IResponse[]>([]);
+  const [answers, setAnswers] = useState<IResponse[]>([]);
+  const [idCurrentChat, setIdCurrentChat] = useState<string>('');
+  const [chatList, setChatList] = useState<IChatList[]>([]);
+  const [showGuide, setShowGuide] = useState<boolean>(true);
+  const [showAside, setShowAside] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleRequestIA = async (): Promise<void> => {
+    try {
+      setLoading(true);
+      setQuestions([...questions, modelResponse('user', message)]);
+      const response = await requestApi(key, message);
+      if (response) {
+        setAnswers([...answers, modelResponse('bot', response.content)]);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setAnswers([...answers, modelResponse('bot', error.message)]);
+      }
+    } finally {
+      setMessage('');
+      setLoading(false);
+    }
+  };
+
+  const deleteChat = (id: string): void => {
+    const chatListFiltered = chatList.filter((item) => item.id !== id);
+    if (chatListFiltered.length > 0) {
+      setChatList(chatListFiltered);
+      localStorage.setItem('chat', JSON.stringify(chatListFiltered));
+      setQuestions(chatListFiltered[0]?.questions ?? []);
+      setAnswers(chatListFiltered[0]?.answers ?? []);
+      setIdCurrentChat(chatListFiltered[0]?.id);
+    } else {
+      setChatList([]);
+      setQuestions([]);
+      setAnswers([]);
+      setIdCurrentChat(uuidv4());
+      localStorage.removeItem('chat');
+    }
+  };
+
+  const updateIdCurrentChat = useCallback(
+    (id: string): void => {
+      setIdCurrentChat(id);
+      const currentChat = chatList.find((item) => item.id === id);
+      if (currentChat) {
+        setQuestions(currentChat?.questions ?? []);
+        setAnswers(currentChat?.answers ?? []);
+      }
+    },
+    [chatList],
+  );
+
+  const updateChatList = useCallback(() => {
+    if (idCurrentChat && questions.length > 0 && answers.length > 0) {
+      setChatList((prevChatList) => {
+        const list = [...prevChatList];
+
+        if (list.some(({ id }) => id === idCurrentChat)) {
+          const newList = list
+            .map((i) => (i.id === idCurrentChat ? { ...i, questions, answers } : i));
+          localStorage.setItem('chat', JSON.stringify(newList));
+          return newList;
+        }
+        list.push({ id: idCurrentChat, questions, answers });
+        localStorage.setItem('chat', JSON.stringify(list));
+        return list;
+      });
+    }
+  }, [answers, idCurrentChat, questions]);
+
+  useEffect(updateChatList, [updateChatList]);
+
+  useEffect(() => {
+    setIdCurrentChat(uuidv4());
+    const chatStorage = localStorage.getItem('chat');
+    if (chatStorage) {
+      setChatList(JSON.parse(chatStorage));
+    }
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <main className="px-6 lg:px-0 py-16 lg:py-20 w-screen h-screen max-h-screen flex flex-row justify-between items-center">
+      {!showGuide && (
+      <Aside
+        chatList={chatList}
+        updateIdCurrentChat={updateIdCurrentChat}
+        deleteChat={deleteChat}
+        showAside={showAside}
+        setShowAside={setShowAside}
+      />
+      )}
+      <section className="w-full h-full flex flex-col justify-between items-center">
+        <Title />
+        {showGuide ? (
+          <Guide />
+        ) : (
+          <ChatBot
+            questions={questions}
+            answers={answers}
+            loading={loading}
+          />
+        )}
+        <SearchField
+          message={message}
+          setMessage={setMessage}
+          handleRequestIA={handleRequestIA}
+          showGuide={showGuide}
+          setShowGuide={setShowGuide}
+          keyAPI={key}
+          setKey={setKey}
         />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </section>
     </main>
-  )
+  );
 }
