@@ -4,11 +4,9 @@ Já considerou a possibilidade de desenvolver o seu próprio chatbot? A intelig�
 
 ## 🤓 Antes de começar
 
-Este Mini Projeto contém um boilerplate inicial, ou seja, algumas partes do código já estão prontas para que você possa focar nas tecnologias principais.
+Este Mini Projeto contém um boilerplate inicial, ou seja, algumas partes do código já estão prontas para que você possa focar nas tecnologias principais. Atente-se, portanto, à estrutura do código inicial.
 
 Caso você prefira começar do zero, não tem problema, basta apagar os arquivos.
-
-Caso você utilize o boilerplate, atente-se à estrutura do código.
 
 ## 🔨 Requisitos
 
