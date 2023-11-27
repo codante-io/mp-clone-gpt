@@ -19,6 +19,10 @@ Caso você prefira começar do zero, não tem problema, basta apagar os arquivos
 
 - Crie um guia inicial de como o usuário pode obter a sua chave de acesso da OpenAI.
 - Seu app deve ter um campo de texto para o usuário digitar a sua chave.
+
+	> ⚠️ **Cuidado:**
+  > - Sua chave API é secreta e não pode ser compartilhada. Utilize-a somente em sua máquina local e não faça commit com ela no seu código. 
+
 - Seu app deve ter um campo de texto para o usuário digitar a sua pergunta.
 
 	> 👀 **Dicas:**
@@ -36,17 +40,6 @@ Caso você prefira começar do zero, não tem problema, basta apagar os arquivos
 - Crie uma lógica para que seja possível excluir uma conversa.
 - Utilize o localStorage para carregar a sua lista de conversas ao abrir a aplicação.
 
-## 💻 Setup do projeto
-
-O projeto com o design inicial já estará disponível para você na branch principal do repositório. Sua responsabilidade será apenas implementar a lógica de acordo com o passo a passo acima.
-
-## 🔍 Dicas
-
-- Estude sobre componentização, estados e passagem de props.
-- Estude sobre renderização condicional de componentes.
-- Estude sobre tipagem de dados com TypeScript.
-- Estude sobre Tailwind CSS e utilize com frequência a documentação.
-
 ## 🎨 Design Sugerido
 
 Temos uma sugestão de design no Figma. Entretanto, fique à vontade para montar a aplicação conforme a sua criatividade.
@@ -55,7 +48,7 @@ Temos uma sugestão de design no Figma. Entretanto, fique à vontade para montar
 
 🔗 [Link do design]()
 
-## 👉🏽 Sobre esse mini-projeto
+## 👉🏽 Sobre esse Mini Projeto
 
 ### Tecnologias
 
