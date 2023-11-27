@@ -4,7 +4,7 @@ Já considerou a possibilidade de desenvolver o seu próprio chatbot? A intelig�
 
 ## 🤓 Antes de começar
 
-Esse Mini Projeto contém um boilerplate inicial, ou seja, algumas partes do código já estão prontas para que você possoa focar nas tecnologias principais.
+Este Mini Projeto contém um boilerplate inicial, ou seja, algumas partes do código já estão prontas para que você possa focar nas tecnologias principais.
 
 Caso você prefira começar do zero, não tem problema, basta utilizar outra *branch* ou apagar os arquivos.
 
@@ -12,11 +12,11 @@ Caso você utilize o boilerplate, atente-se à estrutura do código.
 
 ## 🔨 Requisitos
 
-- Utilize o Next JS + TypeScript + Tailwind CSS.
+- Utilize o Next.js + TypeScript + Tailwind CSS.
 - Utilize a API da OpenAI para gerar os textos.
 
 	> 👀 **Dicas:**
-	> - Utilize as rotas de API do Next JS para fazer as requisições para a OpenAI.
+	> - Utilize as rotas de API do Next.js para fazer as requisições à OpenAI.
 	> - Tire as suas dúvidas na documentação da [OpenAI](https://www.npmjs.com/package/openai).
 
 - Crie um guia inicial de como o usuário pode obter a sua chave de acesso da OpenAI.
@@ -25,11 +25,11 @@ Caso você utilize o boilerplate, atente-se à estrutura do código.
 
 	> 👀 **Dicas:**
 	> - Busque reaproveitar componentes.
-	> - Fique a vontade para utilizar qualquer gerenciador de estado.
+	> - Fique à vontade para utilizar qualquer gerenciador de estado.
 
-- Seu app deve ter um botão para enviar a pergunta para a OpenAI.
-- Crie componentes para renderizar as perguntas do Usuário e respostas do Bot.
-- Crie um loading para indicar que a resposta do Bot está sendo processada.
+- Seu app deve ter um botão para enviar a pergunta à OpenAI.
+- Crie componentes para renderizar as perguntas do usuário e respostas do bot.
+- Crie um loading para indicar que a resposta do bot está sendo processada.
 
 ## 🔨 Desafio extra para quem quer ir além
 
@@ -40,11 +40,11 @@ Caso você utilize o boilerplate, atente-se à estrutura do código.
 
 ## 💻 Setup do projeto
 
-O projeto com o design inicial já estará disponível para você na branch principal do repositório. Sua responsabilidade será apenas de implementar a lógica de acordo com o passo a passo acima.
+O projeto com o design inicial já estará disponível para você na branch principal do repositório. Sua responsabilidade será apenas implementar a lógica de acordo com o passo a passo acima.
 
 ## 🔍 Dicas
 
-- Estude sobre componentização, estados e passagem de Props.
+- Estude sobre componentização, estados e passagem de props.
 - Estude sobre renderização condicional de componentes.
 - Estude sobre tipagem de dados com TypeScript.
 - Estude sobre Tailwind CSS e utilize com frequência a documentação.
@@ -62,7 +62,7 @@ Temos uma sugestão de design no Figma. Entretanto, fique à vontade para montar
 ### Tecnologias
 
 - **Tecnologias:**
-  - `Next JS`;
+  - `Next.js`;
   - `TypeScript`;
   - `Tailwind CSS`;
   - `OpenAI`;
