@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
 function Home(): ReactElement {
   return (
@@ -10,7 +10,6 @@ function Home(): ReactElement {
       </h1>
 
       {/* DESENVOLVA SEU CODIGO AQUI */}
-
     </main>
   );
 }
