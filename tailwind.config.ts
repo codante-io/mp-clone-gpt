@@ -9,12 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "b-light": "#343541",
-        "b-dark": "#202123",
-        "b-chat": "#444654",
-        "t-light": "#FFF",
-        "t-dark": "#7B7B87",
-        "t-border": "#565869",
+        gray: "#7B7B87",
+        border: "#565869",
+        "background-light": "#343541",
+        "background-dark": "#202123",
+        "background-chat": "#444654",
       },
     },
   },
